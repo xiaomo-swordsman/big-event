@@ -1,0 +1,26 @@
+# localhost:9001/dev
+server:
+  port: 9009
+  servlet:
+    context-path: /dev
+# mysql-conector-java 5.1.6 数据库链接配置
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf8
+#    username: root
+#    password: 123
+
+# mysql-conector-java 8.0.13 数据库链接配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/big_event?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 开启驼峰命名 映射 下划线写法，
+    # 上面写法  mysql-connector-java 是5.1.6 好像不支持，会报错，找不到方法
+    # 我更换了 mysql-connector-java 8.0.13
+    mapper-locations: classpath:com.xiaomo.mapper/*.xml # 映射mybatis的配置文件
