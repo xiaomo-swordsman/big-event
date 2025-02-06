@@ -2,6 +2,7 @@ package com.xiaomo.controller;
 
 import com.xiaomo.pojo.Result;
 import com.xiaomo.pojo.User;
+import com.xiaomo.service.EmailService;
 import com.xiaomo.service.UserService;
 import com.xiaomo.util.JwtUtil;
 import com.xiaomo.util.Md5Util;
@@ -13,9 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Pattern;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,10 +36,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // localhost:9001/dev/user/testUserController
+    @Autowired
+    private EmailService emailService;
+
+    // localhost:9009/dev/user/testUserController
     @RequestMapping("/testUserController")
     public String testUserController() throws Exception {
 //        JwtUtil.genTokenByRSA();
+
+        // 测试邮件发送
+        // emailService.sendEmail("xiaomo_swordsman@163.com","test","this is a test message");
+
         return "测试 访问userController";
     }
 
@@ -61,6 +66,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
+    // localhost:9009/dev/user/login?username=teng.yang&password=123456
     public Result login(@Pattern(regexp = "^\\S{5,16}$",message = "username参数必须5~16位") String username,
                         @Pattern(regexp = "^\\S{5,16}$",message = "password参数必须5~16位")String password){
         User user = userService.findUserByName(username);
@@ -86,6 +92,7 @@ public class UserController {
     }
 
     @RequestMapping("/userInfo")
+    // localhost:9009/dev/user/userInfo
     public Result userInfo(@RequestHeader(name = "Authorization") String token){
         // 根据用户名获取用户
         Map<String, Object> map = ThreadLocalUtil.get();
@@ -98,6 +105,7 @@ public class UserController {
     // content-type:application/json
     // method:put
     @PutMapping("/update")
+    // localhost:9009/dev/user/update
     public Result update(@RequestBody @Validated User user){
         userService.update(user);
         return Result.success();
@@ -123,6 +131,8 @@ public class UserController {
         String oldPassword = String.valueOf(paramsMap.get("old_password"));
         String newPassword = String.valueOf(paramsMap.get("new_password"));
         String rePassword = String.valueOf(paramsMap.get("re_password"));
+
+        //
         if(!StringUtils.hasLength(oldPassword) || !StringUtils.hasLength(newPassword) || !StringUtils.hasLength(rePassword)){
             return Result.error("缺少必要参数");
         }
