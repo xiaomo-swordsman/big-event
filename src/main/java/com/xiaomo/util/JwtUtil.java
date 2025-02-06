@@ -89,7 +89,7 @@ public class JwtUtil {
         String audience = "your_audience";
         long iat = System.currentTimeMillis() - 1000 * 60 ; //设置生效时间，提前一分钟
 
-        // 2.5 执行，生成token
+        // 2.5 执行，生成token了
         return JWT.create()
                 .withHeader(map)
                 .withClaim("claim",claim)
