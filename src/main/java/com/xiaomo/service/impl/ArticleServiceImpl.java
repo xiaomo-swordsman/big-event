@@ -49,4 +49,21 @@ public class ArticleServiceImpl implements ArticleService {
 
         return pageBean;
     }
+
+    @Override
+    public Article getArticleById(int id){
+        return articleMapper.getArticleById(id);
+    }
+
+    @Override
+    public void delArticle(int id){
+        articleMapper.delArticle(id);
+    }
+
+    @Override
+    public void updateArticle(Article article){
+        article.setUpdateTime(LocalDateTime.now());
+        articleMapper.updateArticle(article);
+    }
+
 }

@@ -2,8 +2,7 @@ package com.xiaomo.mapper;
 
 import com.xiaomo.pojo.Article;
 import com.xiaomo.pojo.PageBean;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -15,4 +14,14 @@ public interface ArticleMapper {
     void add(Article article);
 
     List<Article> list(Integer userId, Integer categoryId, String state);
+
+    @Select("select * from article where id=#{id}")
+    Article getArticleById(int id);
+
+    @Delete("delete from article where id=#{id}")
+    void delArticle(int id);
+
+    @Update("update article set title=#{title},content=#{content},cover_img=#{coverImg},state=#{state}," +
+            "category_id=#{categoryId},create_user=#{createUser} ,update_time=#{updateTime} where id=#{id}")
+    void updateArticle(Article article);
 }

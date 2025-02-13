@@ -7,6 +7,7 @@ import com.xiaomo.pojo.Result;
 import com.xiaomo.service.ArticleService;
 import com.xiaomo.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,8 +55,31 @@ public class ArticleController {
 
 
     // 获取文章详情
+    // localhost:9009/dev/article/1
+    @GetMapping("{id}")
+    public Result getArticleById(@PathVariable int id){
+
+        Article article = articleService.getArticleById(id);
+
+        if(null == article){
+            return Result.error("未找到文章");
+        }
+        return Result.success(article);
+    }
 
     // 更新文章
+    // localhost:9009/dev/article
+    @PutMapping
+    public Result updateArticle(@RequestBody @Validated Article article){
+        articleService.updateArticle(article);
+        return Result.success();
+    }
 
     // 删除文章
+    // localhost:9009/dev/article?id=2
+    @DeleteMapping
+    public Result deleteArticle(@RequestParam int id){
+        articleService.delArticle(id);
+        return Result.success();
+    }
 }
