@@ -6,9 +6,11 @@ import com.xiaomo.service.EmailService;
 import com.xiaomo.service.UserService;
 import com.xiaomo.util.JwtUtil;
 import com.xiaomo.util.Md5Util;
+import com.xiaomo.util.RedisUtil;
 import com.xiaomo.util.ThreadLocalUtil;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Pattern;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /*
     用户模块
@@ -38,6 +41,9 @@ public class UserController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     // localhost:9009/dev/user/testUserController
     @RequestMapping("/testUserController")
@@ -82,7 +88,11 @@ public class UserController {
                 claim.put("id",user.getId());
                 claim.put("userName",user.getUsername());
                 ThreadLocalUtil.set(claim);
-                return Result.success(JwtUtil.genRSAToken(claim));
+                String token = JwtUtil.genRSAToken(claim);
+                // 登陆成功后，将token 也存入到redis中
+                stringRedisTemplate.opsForValue().set(token,token,1, TimeUnit.HOURS);
+
+                return Result.success(token);
             }catch (Exception e){
                 e.printStackTrace();
                 return Result.error("生成token报错");
@@ -126,7 +136,7 @@ public class UserController {
     }
 
     @PatchMapping("/updatePassword")
-    public Result updatePassword(@RequestBody Map<String,Object> paramsMap){
+    public Result updatePassword(@RequestBody Map<String,Object> paramsMap, @RequestHeader(name="Authorization") String token){
         // 校验传来的密码、新密码、确认密码是否为空
         String oldPassword = String.valueOf(paramsMap.get("old_password"));
         String newPassword = String.valueOf(paramsMap.get("new_password"));
@@ -152,6 +162,9 @@ public class UserController {
 
         // 更新密码
         userService.updatePassword(newPassword,user.getId());
+
+        // 修改密码后，应该需要删除token，登陆时候重新获取最新token
+        stringRedisTemplate.delete(token);
 
         // 响应到前端
         return Result.success();

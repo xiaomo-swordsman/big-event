@@ -1,6 +1,7 @@
 package com.xiaomo.controller;
 
 import com.xiaomo.pojo.Result;
+import com.xiaomo.util.AliOssUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ public class FileUploadController {
     @PostMapping("/uploadFile")
     // localhost:9009/dev/file/uploadFile
     public Result uploadFile(MultipartFile file) throws IOException {
-        // 获取文件的明村
+        // 获取文件的名称
         String originalFilename= file.getOriginalFilename();
 
         // file.getSize();// 获取文件大小，单位：字节
@@ -31,6 +32,17 @@ public class FileUploadController {
         file.transferTo(new File("C:\\Users\\Administrator\\Desktop\\file\\" + fileName));
 
         return Result.success("文件url的地址...");
+    }
+
+    @PostMapping("/uploadFileToAliOss")
+    public Result uploadFileToAliOss(MultipartFile file) throws IOException {
+        // 获取文件的名称
+        String originalFilename= file.getOriginalFilename();
+        // 保证名字唯一，所以加上uuid
+        String fileName = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
+
+        String url = AliOssUtil.uploadFile(fileName,file.getInputStream());
+        return Result.success(url);
     }
 
 }

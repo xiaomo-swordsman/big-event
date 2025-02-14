@@ -4,3 +4,7 @@ spring:
     active: dev #启动指定环境 实际使用application-dev.yml
   # active: pro #启动指定环境 实际使用application-pro.yml
   # active: test #启动指定环境 实际使用application-test.yml
+server:
+  servlet:
+    context-path: /dev
+  port: 9009

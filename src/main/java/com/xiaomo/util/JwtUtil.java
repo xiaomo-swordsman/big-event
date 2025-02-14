@@ -92,8 +92,8 @@ public class JwtUtil {
         // 2.5 执行，生成token了
         return JWT.create()
                 .withHeader(map)
-                .withClaim("claim",claim)
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 12)) // 设置有效期 1分钟
+                .withClaim("claim",claim)// 载荷数据
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24)) // 设置有效期 30天
                 .withNotBefore(new Date(iat))
                 .withJWTId(UUID.randomUUID().toString()) // JWT的唯一标识符
                 .withIssuer(issuer)
