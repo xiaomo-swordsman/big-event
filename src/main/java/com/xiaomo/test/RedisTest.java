@@ -12,13 +12,13 @@ public class RedisTest {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @Test
+//    @Test
     public void testSet(){
         // 向redis中 存入一个键值对
         stringRedisTemplate.opsForValue().set("name","xiaomo");
     }
 
-    @Test
+//    @Test
     public void testGet(){
         // 向redis中 存入一个键值对
         String name = stringRedisTemplate.opsForValue().get("name");

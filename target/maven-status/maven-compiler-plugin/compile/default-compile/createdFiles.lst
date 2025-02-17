@@ -1,10 +1,10 @@
 com\xiaomo\service\UserService.class
-com\xiaomo\BigEventApplication.class
 com\xiaomo\mapper\UserMapper.class
-com\xiaomo\pojo\Result.class
 com\xiaomo\controller\UserController.class
 com\xiaomo\pojo\User.class
+com\xiaomo\util\Md5Util.class
+com\xiaomo\BigEventApplication.class
+com\xiaomo\pojo\Result.class
 com\xiaomo\service\impl\UserServiceImpl.class
 com\xiaomo\pojo\Article.class
-com\xiaomo\util\Md5Util.class
 com\xiaomo\pojo\Category.class

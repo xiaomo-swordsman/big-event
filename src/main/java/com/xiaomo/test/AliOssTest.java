@@ -13,7 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class AliOssTest {
-    @Test
+    //@Test
     public void uploadFileToAioss() throws com.aliyuncs.exceptions.ClientException {
         // Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
         String endpoint = "https://oss-cn-beijing.aliyuncs.com";

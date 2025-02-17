@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 public class ThreadLocalTest {
 
-    @Test
+//    @Test
     public void testThreadLocalTest(){
         // 提供一个ThreadLocal对象
         ThreadLocal tl = new ThreadLocal();

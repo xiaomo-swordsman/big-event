@@ -1,0 +1,47 @@
+# mysql-conector-java 5.1.6 数据库链接配置
+#spring:
+#  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf8
+#    username: root
+#    password: 123
+
+# mysql-conector-java 8.0.13 数据库链接配置
+spring:
+  # mysql数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3308/big_event?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123
+  # redis配置
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+# mybatis 配置
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # 开启驼峰命名 映射 下划线写法，
+    # 上面写法  mysql-connector-java 是5.1.6 好像不支持，会报错，找不到方法
+    # 我更换了 mysql-connector-java 8.0.13
+    mapper-locations: classpath:com.xiaomo.mapper/*.xml # 映射mybatis的配置文件
+
+# 邮箱配置
+email:
+  # 163 邮箱配置
+  #  user: xiaomo_swordsman@163.com
+  #  code: KCkPdSZac8TW3tRj
+  #  host: smtp.163.com
+  #  port: 465
+  #  auth: true
+  #  sslEnable: true
+
+  # Microsoft365 邮箱配置
+  user: studentservice@echineselearning.com
+  code: R^343285992647at
+  host: smtp.office365.com
+  port: 587
+  auth: true
+  sslEnable: true
