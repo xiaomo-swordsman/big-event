@@ -20,7 +20,7 @@ import java.util.Map;
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired
-    public StringRedisTemplate stringRedisTemplate;
+    public RedisUtil redisUtil;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
@@ -30,7 +30,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         // 验证token
         try{
             // 判断token 是否还存在redis中，如果不存在，则抛出异常
-            String redisToken = stringRedisTemplate.opsForValue().get(token);
+            String redisToken = redisUtil.get(token);
             if(!StringUtils.hasLength(redisToken)){
                 throw new RuntimeException();
             }

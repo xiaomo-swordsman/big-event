@@ -43,7 +43,7 @@ public class UserController {
     private EmailService emailService;
 
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private RedisUtil  redisUtil;
 
     // localhost:9009/dev/user/testUserController
     @RequestMapping("/testUserController")
@@ -90,8 +90,8 @@ public class UserController {
                 ThreadLocalUtil.set(claim);
                 String token = JwtUtil.genRSAToken(claim);
                 // 登陆成功后，将token 也存入到redis中
-                stringRedisTemplate.opsForValue().set(token,token,1, TimeUnit.HOURS);
-
+                //stringRedisTemplate.opsForValue().set(token,token,1, TimeUnit.HOURS);
+                redisUtil.set(token,token,1, TimeUnit.HOURS);
                 return Result.success(token);
             }catch (Exception e){
                 e.printStackTrace();
@@ -161,10 +161,10 @@ public class UserController {
         }
 
         // 更新密码
-        userService.updatePassword(newPassword,user.getId());
+        userService.updatePassword(Md5Util.getMD5String(newPassword),user.getId());
 
         // 修改密码后，应该需要删除token，登陆时候重新获取最新token
-        stringRedisTemplate.delete(token);
+        redisUtil.del(token);
 
         // 响应到前端
         return Result.success();

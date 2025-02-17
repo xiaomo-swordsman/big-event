@@ -10,25 +10,25 @@ import java.util.concurrent.TimeUnit;
 public class RedisUtil {
 
     @Autowired
-    private static StringRedisTemplate stringRedisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     // 向redis中 存入值
-    public static void set(String key, String value){
+    public void set(String key, String value){
         stringRedisTemplate.opsForValue().set(key,value);
     }
 
     // 设置值的时候，同时设置过期时间  TimeUnit.HOURS
-    public static void set(String key, String value,long timeOut,TimeUnit timeUnit){
+    public void set(String key, String value,long timeOut,TimeUnit timeUnit){
         stringRedisTemplate.opsForValue().set(key,value,timeOut, timeUnit);
     }
 
     // 从redis中取值
-    public static String get(String key){
+    public String get(String key){
         return stringRedisTemplate.opsForValue().get(key);
     }
 
     // 从redis中删除值
-    public static void del(String key){
+    public void del(String key){
         stringRedisTemplate.delete(key);
     }
 
