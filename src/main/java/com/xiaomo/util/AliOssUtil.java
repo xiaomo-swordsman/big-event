@@ -28,8 +28,11 @@ public class AliOssUtil {
 
     private final static String END_POINT = "https://oss-cn-beijing.aliyuncs.com";
     private final static String BUCKET_NAME = "big-event-bucket-demo";
-    private final static String ACCES_KEY_ID = "LTAI5t9xytiZMBAGN1S61Uv4";
-    private final static String ACCES_KEY_SECRET = "GGlKNjhu29PRDV5e7VettaNtb4XiNd";
+
+    private final static String ACCES_KEY_ID = "";
+    private final static String ACCES_KEY_SECRET = "";
+//    private final static String ACCES_KEY_ID = "LTAI5t9xytiZMBAGN1S61Uv4";
+//    private final static String ACCES_KEY_SECRET = "GGlKNjhu29PRDV5e7VettaNtb4XiNd";
 
     public static String uploadFile(String objectName, InputStream inputStream){
         String url = "";
