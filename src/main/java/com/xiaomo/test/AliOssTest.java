@@ -20,7 +20,7 @@ public class AliOssTest {
         // 从环境变量中获取访问凭证。运行本代码示例之前，请确保已设置环境变量OSS_ACCESS_KEY_ID和OSS_ACCESS_KEY_SECRET。
         // EnvironmentVariableCredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
 
-        :String ACCES_KEY_ID = "";
+        String ACCES_KEY_ID = "";
         String ACCES_KEY_SECRET = "";
 
         // 填写Bucket名称，例如examplebucket。
