@@ -20,6 +20,9 @@ import java.io.InputStream;
     密码：yangteng024680,.
     手机：1327706927
 
+    LTAI5t9xytiZMBAGN1S61Uv4
+    GGlKNjhu29PRDV5e7VettaNtb4XiNd
+
     sdk地址：https://oss.console.aliyun.com/sdk
     accessKey地址 ： https://ram.console.aliyun.com/profile/access-keys?spm=5176.8465980.console-base_top-nav.dak.3beb14505Lmfty
  */
@@ -31,8 +34,6 @@ public class AliOssUtil {
 
     private final static String ACCES_KEY_ID = "";
     private final static String ACCES_KEY_SECRET = "";
-//    private final static String ACCES_KEY_ID = "LTAI5t9xytiZMBAGN1S61Uv4";
-//    private final static String ACCES_KEY_SECRET = "GGlKNjhu29PRDV5e7VettaNtb4XiNd";
 
     public static String uploadFile(String objectName, InputStream inputStream){
         String url = "";
