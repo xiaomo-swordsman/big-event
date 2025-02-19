@@ -6,6 +6,7 @@ import com.xiaomo.util.RedisUtil;
 import com.xiaomo.util.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.http.HttpMethod;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -24,6 +25,12 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
+        // 解决跨域，跨域时候，浏览器会先发送options请求，需要后端正确处理，否则会造成Authorization 头部信息丢失
+        // 在拦截器中忽略 OPTIONS 请求
+        if(HttpMethod.OPTIONS.toString().equals(request.getMethod())){
+            return true;
+        }
+
         // 获取token
         String token = request.getHeader("Authorization");
 

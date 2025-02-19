@@ -16,6 +16,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/article")
+//@CrossOrigin(
+//        origins = "http://127.0.0.1:5500", // 或 "*" 允许所有
+//        allowedHeaders = "Authorization",
+//        methods = {RequestMethod.GET, RequestMethod.OPTIONS},
+//        allowCredentials = "true"
+//)
 public class ArticleController {
 
     @Autowired

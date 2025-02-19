@@ -91,7 +91,7 @@ public class UserController {
                 String token = JwtUtil.genRSAToken(claim);
                 // 登陆成功后，将token 也存入到redis中
                 //stringRedisTemplate.opsForValue().set(token,token,1, TimeUnit.HOURS);
-                redisUtil.set(token,token,1, TimeUnit.HOURS);
+                redisUtil.set(token,token,24 , TimeUnit.HOURS);
                 return Result.success(token);
             }catch (Exception e){
                 e.printStackTrace();
