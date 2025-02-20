@@ -13,6 +13,7 @@ public interface ArticleMapper {
             "values (#{title},#{content},#{coverImg},#{state},#{categoryId},#{createUser},#{createTime},#{updateTime})")
     void add(Article article);
 
+    //@Select("select * from article where create_user=#{userId} and category_id=#{categoryId} and state=#{state}")
     List<Article> list(Integer userId, Integer categoryId, String state);
 
     @Select("select * from article where id=#{id}")
